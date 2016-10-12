@@ -1,7 +1,7 @@
 'use strict'
 const observable = require('../')
 const test = require('tape')
-const vstamp = require('vigour-stamp')
+const vstamp = require('brisky-stamp')
 
 test('remove', function (t) {
   var top = 0

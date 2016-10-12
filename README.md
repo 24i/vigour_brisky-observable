@@ -6,7 +6,7 @@
 
 Simple, extendable observables - does not require knowledge of flatmaps, reduce or event streams, inspired by [rx-js](http://reactivex.io/) and modelled as [observ-struct](https://www.npmjs.com/package/observ-struct).
 
-Adds unqiue change stamps see [vigour-stamp](https://github.com/vigour-io/stamp) for more information
+Adds unqiue change stamps see [brisky-stamp](https://github.com/vigour-io/stamp) for more information
 
 Inherits from [vigour-base](https://github.com/vigour-io/base)
 
@@ -40,7 +40,7 @@ var obs = require('brisky-observable')
 var fruits = obs()
 
 fruits.on((data, stamp) => {
-  // stamp is a unique stamp for each change see vigour-stamp
+  // stamp is a unique stamp for each change see brisky-stamp
   // data is the current set obj { banana: 1, kiwi: 1 } in this case
   console.log('fruits!', data, stamp)
 })
