@@ -1,8 +1,8 @@
-# vigour-observable
-[![Build Status](https://travis-ci.org/vigour-io/observable.svg?branch=master)](https://travis-ci.org/vigour-io/observable)
+# brisky-observable
+[![Build Status](https://travis-ci.org/vigour-io/brisky-observable.svg?branch=master)](https://travis-ci.org/vigour-io/brisky-observable)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![npm version](https://badge.fury.io/js/vigour-observable.svg)](https://badge.fury.io/js/vigour-observable)
-[![Coverage Status](https://coveralls.io/repos/github/vigour-io/observable/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/observable?branch=master)
+[![npm version](https://badge.fury.io/js/brisky-observable.svg)](https://badge.fury.io/js/brisky-observable)
+[![Coverage Status](https://coveralls.io/repos/github/vigour-io/brisky-observable/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/brisky-observable?branch=master)
 
 Simple, extendable observables - does not require knowledge of flatmaps, reduce or event streams, inspired by [rx-js](http://reactivex.io/) and modelled as [observ-struct](https://www.npmjs.com/package/observ-struct).
 
@@ -12,15 +12,15 @@ Inherits from [vigour-base](https://github.com/vigour-io/base)
 
 ####operators and set
 ```javascript
-var Observable = require('vigour-observable')
-var name = new Observable({
+var obs = require('brisky-observable')
+var name = obs({
   val: 'a name',
   $transform (val) {
     return val.toUpperCase()
   }
 })
 
-var person = new Observable({ name: 'a name' })
+var person = obs({ name: 'a name' })
 
 person.name.on(() => {
   // logs "A NAME" when set to the reference
@@ -36,8 +36,8 @@ name.set('james')
 
 ####on and off
 ```javascript
-var Observable = require('vigour-observable')
-var fruits = new Observable()
+var obs = require('brisky-observable')
+var fruits = obs()
 
 fruits.on((data, stamp) => {
   // stamp is a unique stamp for each change see vigour-stamp
