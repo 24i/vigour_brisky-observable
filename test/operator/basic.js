@@ -1,6 +1,7 @@
 'use strict'
 const observable = require('../../')
 const test = require('tape')
+const Operator = require('../../operator')
 
 test('operator - $transform, $add and $prepend', t => {
   var transformStart
@@ -86,5 +87,19 @@ test('operator - $transform - context', t => {
   })
   const obs3 = new obs2.Constructor({ key: 'obs3' })
   t.equal(obs3.a.b.c.compute(), 'obs3-a-b-c-hello', 'correct context')
+  t.end()
+})
+
+test('operator - type', t => {
+  const obs = observable({
+    special: {
+      type: 'operator',
+      operator () {
+        return 'lulz'
+      }
+    }
+  })
+  t.equal(obs.compute(), 'lulz', 'use opertor type')
+  t.ok(obs.special instanceof Operator, 'instanceof operator')
   t.end()
 })
