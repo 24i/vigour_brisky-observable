@@ -1,7 +1,7 @@
 'use strict'
 const observable = require('../')
 const test = require('tape')
-const vstamp = require('brisky-stamp')
+const bstamp = require('brisky-stamp')
 
 test('remove', function (t) {
   var top = 0
@@ -30,7 +30,7 @@ test('remove', function (t) {
   obs.once((val, stamp) => {
     t.equal(obs.val, null, 'fires when obs is removed')
     t.equal(val, null, 'val equals null')
-    t.equal(stamp, vstamp.cnt, 'correct stamp')
+    t.equal(stamp, bstamp.cnt, 'correct stamp')
   })
   obs.remove()
   t.equal(deep, 2, 'fired deep twice')
@@ -46,7 +46,7 @@ test('remove - fires data listeners when completed', function (t) {
     on: {
       data: {
         playStateItems (data, stamp) {
-          vstamp.done(stamp, () => {
+          bstamp.done(stamp, () => {
             const keys = this.keys()
             const count = keys.length
             t.equals(count, 1, 'correct number of keys')
@@ -108,9 +108,9 @@ test('remove - on other stamp', function (t) {
       }
     }
   })
-  const stamp = vstamp.create()
+  const stamp = bstamp.create()
   obs.a.remove(stamp)
-  vstamp.close(stamp)
+  bstamp.close(stamp)
 })
 
 test('remove - gaurd against removed items', function (t) {
@@ -124,7 +124,7 @@ test('remove - gaurd against removed items', function (t) {
       }
     }
   })
-  const stamp = vstamp.create()
+  const stamp = bstamp.create()
   obs.remove(stamp)
   obs.remove()
 })
