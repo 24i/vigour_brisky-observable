@@ -1,8 +1,8 @@
 'use strict'
-var Observable = require('../../')
-var test = require('tape')
+const Observable = require('../../')
+const test = require('tape')
 
-test('operator - $type', function (t) {
+test('operator - $type', t => {
   const obs = new Observable({
     val: 'hello',
     $type: 'boolean'
@@ -27,12 +27,6 @@ test('operator - $type', function (t) {
   t.equal(typeof obs.compute(), 'string', 'string - convert 100 to "100"')
   obs.set('hello')
   t.equal(obs.compute(), 'hello', 'string - "hello"')
-  obs.$type.set('email')
-  t.equal(obs.compute(), false, 'email - convert "hello" to false')
-  obs.set('email@email.com')
-  t.equal(obs.compute(), 'email@email.com', 'email - "email@email.com" to "email@email.com"')
-  obs.$type.set('url')
-  t.equal(obs.compute(), false, 'url - convert "email@email.com" to false')
   obs.set('bla.bla.com')
   t.equal(obs.compute(), 'bla.bla.com', 'url - "bla.bla.com" to "bla.bla.com"')
   obs.$type.set({

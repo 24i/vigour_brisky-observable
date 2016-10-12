@@ -1,9 +1,8 @@
 'use strict'
-var Observable = require('../../')
-var test = require('tape')
+const Observable = require('../../')
+const test = require('tape')
 
-test('operator - $transform, $add and $prepend', function (t) {
-  t.plan(3)
+test('operator - $transform, $add and $prepend', t => {
   var transformStart
   const b = new Observable('b-')
   const a = new Observable({
@@ -31,6 +30,7 @@ test('operator - $transform, $add and $prepend', function (t) {
   obs.compute('start!')
   t.equal(transformStart, 'start!', 'correct start value')
   b.set('B-')
+  t.end()
 })
 
 test('operator - $transform - object', function (t) {
