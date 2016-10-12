@@ -1,9 +1,9 @@
 'use strict'
-const Observable = require('../')
+const observable = require('../')
 const test = require('tape')
 
-test('on - basic', (t) => {
-  const obs = new Observable()
+test('on - basic', t => {
+  const obs = observable()
   obs.on('data', () => {})
   t.equal('data' in obs.emitters, true, 'added data listener')
   obs.on('special', () => {})
@@ -11,8 +11,8 @@ test('on - basic', (t) => {
   t.end()
 })
 
-test('on - instances', (t) => {
-  const obs = new Observable()
+test('on - instances', t => {
+  const obs = observable()
   t.plan(2)
   const a = new obs.Constructor()
   a.on('data', () => {
@@ -25,16 +25,16 @@ test('on - instances', (t) => {
   obs.emit('special')
 })
 
-test('on - remove listener trough set notation', (t) => {
-  const obs = new Observable({ on: { data: { a () {} } } })
+test('on - remove listener trough set notation', t => {
+  const obs = observable({ on: { data: { a () {} } } })
   t.equal('a' in obs._emitters.data.fn, true, 'add fn listener a')
   obs.set({ on: { data: { a: null } } })
   t.equal(obs._emitters.data.fn.a, null, 'removed fn listener a')
   t.end()
 })
 
-test('on - overwrite existing key on different type', (t) => {
-  const obs = new Observable({ on: { data: { a () {} } } })
+test('on - overwrite existing key on different type', t => {
+  const obs = observable({ on: { data: { a () {} } } })
   t.same(obs.emitters.data.fn.keys(), [ 'a' ], 'add fn listener a')
   obs.set({ on: { data: { a: [ () => {} ] } } })
   t.same(obs.emitters.data.attach.keys(), [ 'a' ], 'add attach listener a')
@@ -43,16 +43,16 @@ test('on - overwrite existing key on different type', (t) => {
   t.end()
 })
 
-test('on - add listener to a removed target', (t) => {
-  const obs = new Observable()
+test('on - add listener to a removed target', t => {
+  const obs = observable()
   obs.remove()
   obs.set({ data: { g () {} } })
   t.equal('data' in obs.emitters, false, 'did not add listener on removed observable')
   t.end()
 })
 
-test('on - removed target', (t) => {
-  const obs = new Observable()
+test('on - removed target', t => {
+  const obs = observable()
   obs.remove()
   obs.on(() => {})
   // obs.set({ on: { data: { g () {} } } }) // this does something weird... maybe block sets on removed thigns
@@ -60,8 +60,8 @@ test('on - removed target', (t) => {
   t.end()
 })
 
-test('on - resolve context (method)', (t) => {
-  const obs = new Observable({ a: { on: { data () {} } } })
+test('on - resolve context (method)', t => {
+  const obs = observable({ a: { on: { data () {} } } })
   const instance = new obs.Constructor({ key: 'instance' })
   t.same(obs.a.emitters.data.fn.keys(), [ 'val' ], 'data.fn has val')
   instance.a.on(() => {})
@@ -73,8 +73,8 @@ test('on - resolve context (method)', (t) => {
   t.end()
 })
 
-test('on - resolve context (set)', (t) => {
-  const obs = new Observable({ a: { on: { data () {} } } })
+test('on - resolve context (set)', t => {
+  const obs = observable({ a: { on: { data () {} } } })
   const instance = new obs.Constructor({ key: 'instance' })
   t.same(obs.a.emitters.data.fn.keys(), [ 'val' ], 'data.fn has val')
   instance.set({ a: { on: { data: { 1 () {} } } } })
@@ -86,8 +86,8 @@ test('on - resolve context (set)', (t) => {
   t.end()
 })
 
-test('on - resolve context remove (set)', (t) => {
-  const obs = new Observable({ a: { on: { data () {} } } })
+test('on - resolve context remove (set)', t => {
+  const obs = observable({ a: { on: { data () {} } } })
   const instance = new obs.Constructor({ key: 'instance' })
   t.same(obs.a.emitters.data.fn.keys(), [ 'val' ], 'data.fn has val')
   instance.set({ a: { on: { data: null } } })
@@ -98,9 +98,9 @@ test('on - resolve context remove (set)', (t) => {
   t.end()
 })
 
-test('on - child', (t) => {
+test('on - child', t => {
   // var cnt = 0
-  const obs = new Observable({
+  const obs = observable({
     child: {
       on: {
         xxx: {
@@ -122,7 +122,7 @@ test('on - child', (t) => {
   t.end()
 })
 
-test('on - child - inject', (t) => {
+test('on - child - inject', t => {
   const injectable = {
     field: {
       child: {
@@ -135,7 +135,7 @@ test('on - child - inject', (t) => {
     }
   }
   // all this stuff just work its just the set override
-  const obs = new Observable({
+  const obs = observable({
     inject: injectable,
     field: {
       child: {

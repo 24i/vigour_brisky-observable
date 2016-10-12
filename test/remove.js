@@ -1,5 +1,5 @@
 'use strict'
-const Observable = require('../')
+const observable = require('../')
 const test = require('tape')
 const vstamp = require('vigour-stamp')
 
@@ -8,7 +8,7 @@ test('remove', function (t) {
   var deep = 0
   var remove = 0
   var keys
-  const obs = new Observable({
+  const obs = observable({
     key: 'obs',
     a: { on: { data () { deep++ } } },
     b: true,
@@ -40,7 +40,7 @@ test('remove', function (t) {
 
 test('remove - fires data listeners when completed', function (t) {
   t.plan(1)
-  const obs = new Observable({
+  const obs = observable({
     a: {},
     b: {},
     on: {
@@ -59,7 +59,7 @@ test('remove - fires data listeners when completed', function (t) {
 })
 
 test('remove - context', function (t) {
-  const obs = new Observable({
+  const obs = observable({
     child: {
       define: {
         extend: {
@@ -98,7 +98,7 @@ test('remove - context', function (t) {
 })
 
 test('remove - on other stamp', function (t) {
-  const obs = new Observable({
+  const obs = observable({
     a: {
       on: {
         remove () {
@@ -114,7 +114,7 @@ test('remove - on other stamp', function (t) {
 })
 
 test('remove - gaurd against removed items', function (t) {
-  const obs = new Observable({
+  const obs = observable({
     a: {
       on: {
         remove () {

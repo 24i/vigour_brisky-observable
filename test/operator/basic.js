@@ -1,15 +1,15 @@
 'use strict'
-const Observable = require('../../')
+const observable = require('../../')
 const test = require('tape')
 
 test('operator - $transform, $add and $prepend', t => {
   var transformStart
-  const b = new Observable('b-')
-  const a = new Observable({
+  const b = observable('b-')
+  const a = observable({
     val: 'a',
     $prepend: b
   })
-  const obs = new Observable({
+  const obs = observable({
     val: 'obs-',
     random: 100,
     $add: {
@@ -33,8 +33,8 @@ test('operator - $transform, $add and $prepend', t => {
   t.end()
 })
 
-test('operator - $transform - object', function (t) {
-  const obs = new Observable({
+test('operator - $transform - object', t => {
+  const obs = observable({
     child: { special: 'lulz' },
     $transform (val, start) {
       return { field: 'hello' }
@@ -50,16 +50,16 @@ test('operator - $transform - object', function (t) {
     },
     'correct output'
   )
-  const b = new Observable({ key: 'b' })
-  const obs2 = new Observable({
+  const b = observable({ key: 'b' })
+  const obs2 = observable({
     $transform: b
   })
   t.same(obs2.compute().serialize(), {}, 'outputs base')
   t.end()
 })
 
-test('operator - $transform - null', function (t) {
-  const obs = new Observable({
+test('operator - $transform - null', t => {
+  const obs = observable({
     val: 'hello',
     $add: 'bla',
     $transform (val, start) {
@@ -70,14 +70,14 @@ test('operator - $transform - null', function (t) {
   t.end()
 })
 
-test('operator - $transform - context', function (t) {
-  const obs = new Observable({
+test('operator - $transform - context', t => {
+  const obs = observable({
     noReference: true,
     $transform (val, start) {
       return this.path().join('-') + '-hello'
     }
   })
-  const obs2 = new Observable({
+  const obs2 = observable({
     a: {
       b: {
         c: obs

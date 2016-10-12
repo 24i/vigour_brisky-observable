@@ -2,7 +2,7 @@
   "name": "brisky-observable",
   "version": "3.1.21",
   "description": "fast and mem-efficient observables",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "(ducktape; node test) | tap-difflet && standard",
     "dev": "nodemon test | tap-difflet",

@@ -1,10 +1,10 @@
 'use strict'
-const Observable = require('../')
+const observable = require('../')
 const test = require('tape')
 
-test('basic context case', function (t) {
+test('basic context case', t => {
   var callCount = 0
-  const obs = new Observable({
+  const obs = observable({
     on: {
       data () {
         callCount++
@@ -24,9 +24,9 @@ test('basic context case', function (t) {
   t.end()
 })
 
-test('child constructors and context', function (t) {
+test('child constructors and context', t => {
   t.plan(1)
-  var Obs = new Observable({ child: 'Constructor' }).Constructor
+  var Obs = observable({ child: 'Constructor' }).Constructor
   var keys = {}
   var injectable = {
     api: {
@@ -54,11 +54,11 @@ test('child constructors and context', function (t) {
   t.equal(keys.ref, 1, 'fired for instance')
 })
 
-test('context override', function (t) {
+test('context override', t => {
   t.plan(4)
   var cnt = 0
   var deepCnt = 0
-  var Template = new Observable({
+  var Template = observable({
     key: 'template',
     noContextField: {
       noContext: true,
@@ -85,11 +85,11 @@ test('context override', function (t) {
   t.equal(deepCnt, 1, 'setting noContextField fires once for deep fields')
 })
 
-test('resolve', function (t) {
+test('resolve', t => {
   t.plan(4)
   var prev = {}
   var cnt = { a: 0, a2: 0, c: 0 }
-  var a = new Observable({
+  var a = observable({
     key: 'a',
     b: {
       on: { data () { cnt[this.path()[0]]++ } }
@@ -115,8 +115,8 @@ test('resolve', function (t) {
   }
 })
 
-test('context- remove', function (t) {
-  var a = new Observable({
+test('context- remove', t => {
+  var a = observable({
     key: 'a',
     b: {
       on: {

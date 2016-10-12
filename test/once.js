@@ -1,10 +1,10 @@
 'use strict'
-const Observable = require('../')
+const observable = require('../')
 const test = require('tape')
 
-test('once', (t) => {
+test('once', t => {
   var callCount = 0
-  const obs = new Observable({ a: true })
+  const obs = observable({ a: true })
   obs.a.once(() => { callCount += 1 })
   obs.a.set({ val: false })
   obs.a.set({ val: true })
@@ -12,9 +12,9 @@ test('once', (t) => {
   t.end()
 })
 
-test('once - special emitter', (t) => {
+test('once - special emitter', t => {
   var callCount = 0
-  const obs = new Observable({ a: true })
+  const obs = observable({ a: true })
   obs.a.once('special', () => { callCount += 1 })
   obs.a.emit('special')
   obs.a.emit('special')
@@ -22,9 +22,9 @@ test('once - special emitter', (t) => {
   t.end()
 })
 
-test('once - instances', (t) => {
+test('once - instances', t => {
   var callCount = 0
-  const obs = new Observable({ a: true })
+  const obs = observable({ a: true })
   const instance = new obs.Constructor() //eslint-disable-line
   obs.a.once(() => { callCount += 1 })
   obs.a.set({ val: false })
@@ -33,10 +33,10 @@ test('once - instances', (t) => {
   t.end()
 })
 
-test('once - attach', (t) => {
+test('once - attach', t => {
   var callCount = 0
-  const obs = new Observable({ a: true })
-  const attach = new Observable()
+  const obs = observable({ a: true })
+  const attach = observable()
   obs.a.once([ () => { callCount += 1 }, attach ])
   obs.a.set(false)
   obs.a.set(true)
@@ -47,10 +47,10 @@ test('once - attach', (t) => {
   t.end()
 })
 
-test('once - base', (t) => {
+test('once - base', t => {
   var callCount = 0
-  const obs = new Observable({ a: true })
-  const other = new Observable()
+  const obs = observable({ a: true })
+  const other = observable()
   other.on(() => { callCount++ })
   obs.a.once(other)
   obs.a.set(false)
@@ -59,10 +59,10 @@ test('once - base', (t) => {
   t.end()
 })
 
-test('once - double', (t) => {
+test('once - double', t => {
   var callCount = 0
   var normalCount = 0
-  const obs = new Observable({ a: true })
+  const obs = observable({ a: true })
   obs.a.on(() => { normalCount++ })
   obs.a.once(() => { callCount++ })
   obs.a.on(() => { normalCount++ })
@@ -75,8 +75,8 @@ test('once - double', (t) => {
   t.end()
 })
 
-test('once - add listener to a removed target', (t) => {
-  const obs = new Observable()
+test('once - add listener to a removed target', t => {
+  const obs = observable()
   obs.remove()
   obs.once(() => {})
   t.equal('data' in obs.emitters, false, 'did not add once listener on removed observable')

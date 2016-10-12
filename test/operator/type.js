@@ -1,9 +1,9 @@
 'use strict'
-const Observable = require('../../')
+const observable = require('../../')
 const test = require('tape')
 
 test('operator - $type', t => {
-  const obs = new Observable({
+  const obs = observable({
     val: 'hello',
     $type: 'boolean'
   })

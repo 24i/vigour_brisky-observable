@@ -1,11 +1,11 @@
 'use strict'
-const Observable = require('../')
+const observable = require('../')
 const test = require('tape')
 
-test('off - remove listener by key and function', (t) => {
+test('off - remove listener by key and function', t => {
   function labelled () {}
-  const attach = new Observable()
-  const obs = new Observable({
+  const attach = observable()
+  const obs = observable({
     on: {
       data: {
         a () {},
@@ -23,8 +23,8 @@ test('off - remove listener by key and function', (t) => {
   t.end()
 })
 
-test('off - key', (t) => {
-  const obs = new Observable({
+test('off - key', t => {
+  const obs = observable({
     on: {
       data () {},
       special () {}
@@ -36,8 +36,8 @@ test('off - key', (t) => {
   t.end()
 })
 
-test('off - resolve context (method)', (t) => {
-  const obs = new Observable({ a: { on: { data () {} } } })
+test('off - resolve context (method)', t => {
+  const obs = observable({ a: { on: { data () {} } } })
   const instance = new obs.Constructor({ key: 'instance' })
   t.same(obs.a.emitters.data.fn.keys(), [ 'val' ], 'data.fn has val')
   instance.a.off('data')
@@ -49,8 +49,8 @@ test('off - resolve context (method)', (t) => {
   t.end()
 })
 
-test('off - remove all emitters', (t) => {
-  const obs = new Observable({
+test('off - remove all emitters', t => {
+  const obs = observable({
     on: {
       data () {},
       special () {}

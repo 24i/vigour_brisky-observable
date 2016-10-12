@@ -1,10 +1,10 @@
 'use strict'
-var Observable = require('../')
-var test = require('tape')
+const observable = require('../')
+const test = require('tape')
 
-test('references - keys and remove', function (t) {
+test('references - keys and remove', t => {
   var fired = 0
-  const obs = new Observable({
+  const obs = observable({
     key: 'obs',
     a: true,
     properties: { b: true },
@@ -13,7 +13,7 @@ test('references - keys and remove', function (t) {
   t.plan(5)
   t.equal(obs.keys().length, 1, 'has correct keys length')
 
-  const reference = new Observable({ key: 'reference' })
+  const reference = observable({ key: 'reference' })
   obs.set(reference)
   t.equal(fired, 1, 'setting obs to a reference fires listener')
   t.equal(obs.val, reference, 'obs val equals reference')
@@ -22,13 +22,13 @@ test('references - keys and remove', function (t) {
   t.equal(obs.compute(), true, 'obs computed value equals "true"')
 })
 
-test('references - listensOnBase', function (t) {
-  const a = new Observable({
+test('references - listensOnBase', t => {
+  const a = observable({
     a: true,
     b: true,
     c: true
   })
-  const obs = new Observable({
+  const obs = observable({
     key: 'obs',
     a: {
       val: a.b
@@ -43,13 +43,13 @@ test('references - listensOnBase', function (t) {
   t.end()
 })
 
-test('references - listensOnBase', function (t) {
-  const a = new Observable({
+test('references - listensOnBase', t => {
+  const a = observable({
     a: true,
     b: true,
     c: true
   })
-  const obs = new Observable({
+  const obs = observable({
     key: 'obs',
     a: {
       val: a.b
@@ -64,11 +64,11 @@ test('references - listensOnBase', function (t) {
   t.end()
 })
 
-test('references - attach', function (t) {
+test('references - attach', t => {
   t.plan(2)
   var a
-  const other = new Observable({ key: 'other' })
-  const obs = new Observable({
+  const other = observable({ key: 'other' })
+  const obs = observable({
     key: 'obs',
     on: {
       data: {
@@ -84,8 +84,8 @@ test('references - attach', function (t) {
   t.same(obs._emitters.data.attach.keys(), [], 'removing the attached base removes listeners')
 })
 
-test('references - string notation', function (t) {
-  const obs = new Observable({
+test('references - string notation', t => {
+  const obs = observable({
     key: 'obs',
     items: {},
     channels: {
@@ -106,9 +106,9 @@ test('references - string notation', function (t) {
   })
 })
 
-test('references - custom emitter type', function (t) {
-  const obs = new Observable()
-  const ref = new Observable()
+test('references - custom emitter type', t => {
+  const obs = observable()
+  const ref = observable()
   ref.on('special', obs)
   obs.on('special', () => {
     t.ok(true, 'fires listener')
