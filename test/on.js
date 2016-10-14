@@ -3,6 +3,7 @@ const observable = require('../')
 const test = require('tape')
 
 test('on - basic', t => {
+  t.plan(4)
   const obs = observable()
   obs.on('data', () => {})
   t.equal('data' in obs.emitters, true, 'added data listener')
@@ -11,10 +12,12 @@ test('on - basic', t => {
   obs.set({
     on () {
       t.pass('fires default data listener')
-      t.end()
     }
   })
   obs.set('hello')
+  obs.set({ on: { data: null } })
+  console.log('???', obs.emitters.data)
+  t.equal(obs.emitters.data, null, 'removed data emitter')
 })
 
 test('on - instances', t => {
