@@ -3,7 +3,7 @@ const observable = require('../../')
 const test = require('tape')
 const Operator = require('../../operator')
 
-test('operator - $transform, $add and $prepend', t => {
+test('operator - $transform, $append and $prepend', t => {
   var transformStart
   const b = observable('b-')
   const a = observable({
@@ -13,9 +13,9 @@ test('operator - $transform, $add and $prepend', t => {
   const obs = observable({
     val: 'obs-',
     random: 100,
-    $add: {
+    $append: {
       val: a,
-      $add: '-$add'
+      $append: '-$append'
     },
     $transform (val, start) {
       transformStart = start
@@ -23,11 +23,11 @@ test('operator - $transform, $add and $prepend', t => {
     },
     on: {
       data () {
-        t.equal(this.compute(), '100-$transform-obs-B-a-$add', 'updates after set on reference')
+        t.equal(this.compute(), '100-$transform-obs-B-a-$append', 'updates after set on reference')
       }
     }
   })
-  t.equal(obs.compute(), '100-$transform-obs-b-a-$add', 'correct output')
+  t.equal(obs.compute(), '100-$transform-obs-b-a-$append', 'correct output')
   obs.compute('start!')
   t.equal(transformStart, 'start!', 'correct start value')
   b.set('B-')
@@ -62,7 +62,7 @@ test('operator - $transform - object', t => {
 test('operator - $transform - null', t => {
   const obs = observable({
     val: 'hello',
-    $add: 'bla',
+    $append: 'bla',
     $transform (val, start) {
       return null
     }

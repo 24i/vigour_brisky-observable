@@ -22,7 +22,7 @@ function computeObservable () {
 
 var obs2 = new Observable({
   val: 1,
-  $add: 1
+  $append: 1
 })
 
 function computeOperators () {
