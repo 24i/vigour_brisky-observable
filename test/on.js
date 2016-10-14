@@ -8,7 +8,13 @@ test('on - basic', t => {
   t.equal('data' in obs.emitters, true, 'added data listener')
   obs.on('special', () => {})
   t.equal('special' in obs.emitters, true, 'added special listener')
-  t.end()
+  obs.set({
+    on () {
+      t.pass('fires default data listener')
+      t.end()
+    }
+  })
+  obs.set('hello')
 })
 
 test('on - instances', t => {
