@@ -4,7 +4,7 @@ const test = require('tape')
 const Base = require('brisky-base/base')
 
 test('types - default', t => {
-  const Emitter = require('../emitter')
+  const Emitter = Observable.prototype.types.emitter.Constructor
 
   const obs = new Observable({
     base: { type: 'base' },

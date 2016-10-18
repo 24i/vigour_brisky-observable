@@ -1,7 +1,7 @@
 'use strict'
 const observable = require('../../')
 const test = require('tape')
-const Operator = require('../../operator')
+const Operator = require('../../lib/operator')
 
 test('operator - $transform, $append and $prepend', t => {
   var transformStart
