@@ -1,26 +1,26 @@
 'use strict'
-const Observable = require('../../')
+const observable = require('../../')
 const perf = require('vigour-performance')
 var amount = 1e4
 
 function createObservable () {
-  for (var i = 0; i < amount; i++) {
-    new Observable(i) //eslint-disable-line
+  for (let i = 0; i < amount; i++) {
+    observable(i) //eslint-disable-line
   }
 }
 
 // rly fucking slow
 function createObservableWithListener () {
-  for (var i = 0; i < amount; i++) {
-    let obs = new Observable()
+  for (let i = 0; i < amount; i++) {
+    let obs = observable()
     obs.on(() => {})
   }
 }
 
 function createObservableWithListenerSetObj () {
-  for (var i = 0; i < amount; i++) {
+  for (let i = 0; i < amount; i++) {
     // 8 times slower fuck???
-    new Observable({ on: { data () {} } }) //eslint-disable-line
+    observable({ on: { data () {} } }) //eslint-disable-line
   }
 }
 
