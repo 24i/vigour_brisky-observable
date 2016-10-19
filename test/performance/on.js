@@ -1,6 +1,6 @@
 'use strict'
 const observable = require('../../')
-const perf = require('vigour-performance')
+const perf = require('brisky-performance')
 var amount = 1e5
 
 function createObservable () {
@@ -27,5 +27,4 @@ function createObservableWithListenerSetObj () {
 // add base, add attach
 perf(createObservableWithListener, createObservable, 1.25) // 38x slower!@#!@#!@#
 // perf(createObservableWithListenerSetObj, createObservableWithListener, 1.25)
-
 // add all those different types in here
